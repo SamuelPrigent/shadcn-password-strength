@@ -51,16 +51,9 @@ export function ThemeToggle() {
     }
   }, [theme]);
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch - don't render until mounted
   if (!mounted) {
-    return (
-      <button
-        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-white border border-gray-200 transition-colors"
-        aria-label="Toggle theme"
-      >
-        <div className="w-5 h-5" />
-      </button>
-    );
+    return null;
   }
 
   return (

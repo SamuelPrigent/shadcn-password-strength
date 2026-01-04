@@ -1,23 +1,17 @@
-name: Release
+name: Publish to npm
 
 on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  issues: write
-  pull-requests: write
-  id-token: write
+  release:
+    types: [created]
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -25,12 +19,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
-
       - run: npm run build:lib
 
-      - name: Release
+      - run: npm publish --provenance --access public
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
-        run: npx semantic-release
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS }}

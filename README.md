@@ -1,36 +1,130 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# shadcn-password-strength
 
-## Getting Started
+A customizable password strength indicator component for React with multi-language support.
 
-First, run the development server:
+[![npm version](https://img.shields.io/npm/v/shadcn-password-strength.svg)](https://www.npmjs.com/package/shadcn-password-strength)
+[![license](https://img.shields.io/npm/l/shadcn-password-strength.svg)](https://github.com/SamuelPrigent/shadcn-password-strength/blob/main/LICENSE)
+
+## Why
+
+There's no password strength component in shadcn/ui. This package provides a customizable, accessible password strength indicator that integrates seamlessly with your existing shadcn/ui setup.
+
+## Features
+
+- Multi-language support (English, French, Spanish)
+- Multiple display modes (`full` with rules, `bar-only`)
+- Configurable strength levels (3, 4, or 5 bars)
+- Uses your own shadcn Input/Label components for consistent styling
+- Dark mode support
+- Fully typed with TypeScript
+
+## Usage
+
+### 1. Install dependencies
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx shadcn@latest add input label
+npm install shadcn-password-strength
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Use the component
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```tsx
+import { useState } from "react";
+import { PasswordStrength } from "shadcn-password-strength";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+export function PasswordForm() {
+  const [password, setPassword] = useState("");
 
-## Learn More
+  return (
+    <PasswordStrength
+      value={password}
+      onChange={setPassword}
+      InputComponent={Input}
+      LabelComponent={Label}
+    />
+  );
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Examples
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Bar Only Mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```tsx
+<PasswordStrength
+  value={password}
+  onChange={setPassword}
+  mode="bar-only"
+  InputComponent={Input}
+  LabelComponent={Label}
+/>
+```
 
-## Deploy on Vercel
+### French Locale
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```tsx
+<PasswordStrength
+  value={password}
+  onChange={setPassword}
+  locale="fr"
+  InputComponent={Input}
+  LabelComponent={Label}
+/>
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### With Email Validation
+
+Prevent users from including their email in the password:
+
+```tsx
+<PasswordStrength
+  value={password}
+  onChange={setPassword}
+  email="user@example.com"
+  InputComponent={Input}
+  LabelComponent={Label}
+/>
+```
+
+### Full Configuration
+
+```tsx
+<PasswordStrength
+  value={password}
+  onChange={setPassword}
+  locale="en"
+  mode="full"
+  levels={5}
+  maxRules={3}
+  email="user@example.com"
+  InputComponent={Input}
+  LabelComponent={Label}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | required | Password value |
+| `onChange` | `(value: string) => void` | - | Change callback |
+| `locale` | `"en" \| "fr" \| "es"` | `"en"` | Language |
+| `mode` | `"full" \| "bar-only"` | `"full"` | Display mode |
+| `levels` | `3 \| 4 \| 5` | `5` | Number of strength bars |
+| `maxRules` | `number` | `2` | Max rules shown in full mode |
+| `email` | `string` | - | Email to check against |
+| `forbiddenWords` | `string[]` | - | Words to exclude |
+| `hideInput` | `boolean` | `false` | Hide the input field |
+| `InputComponent` | `Component` | - | Your shadcn Input component |
+| `LabelComponent` | `Component` | - | Your shadcn Label component |
+
+## Documentation
+
+For full documentation and live examples, visit the [documentation site](https://shadcn-password-strength.vercel.app).
+
+## License
+
+MIT

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useThemeStore } from '@/stores/theme-store';
+import Image from 'next/image';
 
 function SunIcon({ className }: { className?: string }) {
   return (
@@ -30,18 +31,7 @@ function SunIcon({ className }: { className?: string }) {
 
 function MoonIcon({ className }: { className?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </svg>
+    <Image src="/moon.svg" alt="Moon" width={20} height={20} className={`${className} invert`} />
   );
 }
 
@@ -51,6 +41,7 @@ export function ThemeToggle() {
 
   // Apply theme to document
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -79,9 +70,9 @@ export function ThemeToggle() {
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
-        <SunIcon className="w-5 h-5 text-gray-700 dark:text-gray-200" />
-      ) : (
         <MoonIcon className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+      ) : (
+        <SunIcon className="w-5 h-5 text-gray-700 dark:text-gray-200" />
       )}
     </button>
   );

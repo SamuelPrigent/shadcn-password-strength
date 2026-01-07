@@ -7,31 +7,26 @@ import { usePasswordStrength, levelToActiveBars } from './usePasswordStrength';
 import { getTranslation } from './translations';
 
 // Strength level colors
-const levelColors: Record<StrengthLevel, { bar: string; text: string; border: string }> = {
+const levelColors: Record<StrengthLevel, { bar: string; text: string }> = {
   veryWeak: {
     bar: 'bg-gray-300 dark:bg-gray-600',
     text: 'text-gray-500 dark:text-gray-400',
-    border: 'border-gray-300 dark:border-gray-600',
   },
   weak: {
     bar: 'bg-red-500',
     text: 'text-red-500',
-    border: 'border-red-500',
   },
   soso: {
     bar: 'bg-orange-400',
     text: 'text-orange-400',
-    border: 'border-orange-400',
   },
   good: {
     bar: 'bg-lime-500',
     text: 'text-lime-500',
-    border: 'border-lime-500',
   },
   strong: {
     bar: 'bg-green-500',
     text: 'text-green-500',
-    border: 'border-green-500',
   },
 };
 
@@ -72,7 +67,7 @@ function EyeIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-5 h-5', className)}
+      className={clsx('w-4 h-4', className)}
     >
       <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
       <path
@@ -90,7 +85,7 @@ function EyeSlashIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-5 h-5', className)}
+      className={clsx('w-4 h-4', className)}
     >
       <path
         fillRule="evenodd"
@@ -102,29 +97,11 @@ function EyeSlashIcon({ className }: { className?: string }) {
   );
 }
 
-function InfoIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      className={clsx('w-4 h-4', className)}
-    >
-      <path
-        fillRule="evenodd"
-        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
-
 export function PasswordStrength({
   value,
   onChange,
   locale = 'en',
-  mode = 'full',
-  levels = 5,
+  barsNumber = 5,
   maxRules = 2,
   showRulesOnValid = true,
   email,
@@ -145,13 +122,13 @@ export function PasswordStrength({
   const translation = getTranslation(locale);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { level, passedRules, failedRules, score } = usePasswordStrength(value, {
-    levels,
+    barsNumber,
     email,
     forbiddenWords,
   });
 
   const colors = levelColors[level];
-  const activeBars = levelToActiveBars(level, levels);
+  const activeBars = levelToActiveBars(level, barsNumber);
 
   // Get display rules (failed first, then passed)
   const displayRules = [
@@ -196,7 +173,7 @@ export function PasswordStrength({
                 value={value}
                 onChange={e => onChange?.(e.target.value)}
                 placeholder={placeholder || translation.placeholder}
-                className={clsx('pr-10', hasValue && colors.border, inputClassName)}
+                className={clsx('pr-10', hasValue, inputClassName)}
               />
             ) : (
               <input
@@ -208,7 +185,6 @@ export function PasswordStrength({
                 className={clsx(
                   'w-full px-3 py-2 rounded-lg border bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors',
                   'focus:outline-none focus:ring-2 focus:ring-offset-0',
-                  hasValue ? colors.border : 'border-gray-300 dark:border-gray-700',
                   hasValue &&
                     `focus:ring-${
                       level === 'strong'
@@ -229,7 +205,7 @@ export function PasswordStrength({
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
                 tabIndex={-1}
               >
                 {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
@@ -242,8 +218,8 @@ export function PasswordStrength({
       {/* Strength indicator */}
       {hasValue && (
         <div className="space-y-2">
-          {/* Rules section (full mode only) */}
-          {mode === 'full' && displayRules.length > 0 && (
+          {/* Rules section (when maxRules > 0) */}
+          {maxRules > 0 && displayRules.length > 0 && (
             <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 space-y-2">
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {translation.passwordMustInclude}
@@ -264,11 +240,11 @@ export function PasswordStrength({
                       )}
                     >
                       {isPassed ? (
-                        <CheckIcon className="text-green-500 shrink-0" />
+                        <CheckIcon className="text-blue-500 shrink-0" />
                       ) : (
                         <XIcon className="text-gray-400 shrink-0" />
                       )}
-                      <span>{ruleLabel}</span>
+                      <span className="text-black dark:text-white">{ruleLabel}</span>
                     </li>
                   );
                 })}
@@ -280,19 +256,14 @@ export function PasswordStrength({
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600 dark:text-gray-400 font-medium">
-                {mode === 'full' ? 'Password Strength' : ''}
+                {translation.passwordStrength}
               </span>
-              <div className="flex items-center gap-1">
-                <span className={clsx('font-medium', colors.text)}>
-                  {translation.levels[level]}
-                </span>
-                {mode === 'bar-only' && <InfoIcon className={colors.text} />}
-              </div>
+              <span className={clsx('font-medium', colors.text)}>{translation.levels[level]}</span>
             </div>
 
             {/* Strength bars */}
             <div className={clsx('flex gap-1', barClassName)}>
-              {Array.from({ length: levels }).map((_, index) => (
+              {Array.from({ length: barsNumber }).map((_, index) => (
                 <div
                   key={index}
                   className={clsx(

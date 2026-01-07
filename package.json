@@ -6,17 +6,31 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SamuelPrigent/shadcn-password-strength"
+    "url": "git+https://github.com/SamuelPrigent/shadcn-password-strength.git"
+  },
+  "homepage": "https://shadcn-password-strength.vercel.app",
+  "bugs": {
+    "url": "https://github.com/SamuelPrigent/shadcn-password-strength/issues"
   },
   "keywords": [
     "react",
     "password",
+    "password-strength",
     "strength",
+    "strength-indicator",
     "indicator",
     "validation",
+    "password-validation",
     "shadcn",
+    "shadcn-ui",
     "tailwind",
-    "typescript"
+    "tailwindcss",
+    "typescript",
+    "i18n",
+    "multilingual",
+    "form",
+    "input",
+    "security"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -44,8 +58,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@radix-ui/react-label": "^2.1.8",

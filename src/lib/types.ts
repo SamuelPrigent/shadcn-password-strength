@@ -1,8 +1,6 @@
-export type Locale = "en" | "fr" | "es";
+export type Locale = "en" | "fr" | "es" | "de" | "pt" | "it" | "nl" | "pl";
 
 export type StrengthLevel = "veryWeak" | "weak" | "soso" | "good" | "strong";
-
-export type DisplayMode = "full" | "bar-only";
 
 export interface PasswordRule {
   id: string;
@@ -29,11 +27,9 @@ export interface PasswordStrengthProps {
   onChange?: (value: string) => void;
   /** Language for labels and messages */
   locale?: Locale;
-  /** Display mode: full (with rules) or bar-only */
-  mode?: DisplayMode;
-  /** Number of strength bars (3-5) */
-  levels?: 3 | 4 | 5;
-  /** Maximum number of rules to display in full mode (1-5) */
+  /** Number of strength bars (3, 4, or 5) */
+  barsNumber?: 3 | 4 | 5;
+  /** Maximum number of rules to display (0 = no rules, just bar) */
   maxRules?: number;
   /** Whether to show rules when they are validated (true) or hide them (false) */
   showRulesOnValid?: boolean;

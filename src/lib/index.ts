@@ -12,7 +12,6 @@ export type {
   RuleOptions,
   Locale,
   StrengthLevel,
-  DisplayMode,
 } from "./types";
 
 // Utilities

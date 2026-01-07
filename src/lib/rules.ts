@@ -30,9 +30,21 @@ export const optionalRules: PasswordRule[] = [
       if (!options?.email) return true;
       const emailParts = options.email.toLowerCase().split("@");
       const username = emailParts[0];
-      if (!username) return true;
-      // Check if password contains the email username
-      return !password.toLowerCase().includes(username);
+      if (!username || username.length < 4) return true;
+
+      const lowerPassword = password.toLowerCase();
+      const minLength = 4;
+
+      // Check all substrings of 4+ characters from the username
+      for (let len = minLength; len <= username.length; len++) {
+        for (let i = 0; i <= username.length - len; i++) {
+          const substring = username.slice(i, i + len);
+          if (lowerPassword.includes(substring)) {
+            return false;
+          }
+        }
+      }
+      return true;
     },
   },
   {
@@ -85,7 +97,17 @@ export function evaluatePassword(
 
   // Calculate score based on passed rules (out of total evaluated rules)
   const totalRules = passedRules.length + failedRules.length;
-  const score = totalRules > 0 ? Math.round((passedRules.length / totalRules) * 5) : 0;
+  let score = totalRules > 0 ? Math.round((passedRules.length / totalRules) * 5) : 0;
+
+  // Apply extra penalty for email pattern in password (-2 score)
+  if (failedRules.includes("noEmail")) {
+    score = Math.max(0, score - 2);
+  }
+
+  // Apply extra penalty for forbidden words in password (-2 score)
+  if (failedRules.includes("noForbiddenWords")) {
+    score = Math.max(0, score - 2);
+  }
 
   return { passedRules, failedRules, score };
 }

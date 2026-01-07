@@ -1,0 +1,40 @@
+# Source files (not needed, dist is published)
+src/
+
+# Next.js site files
+app/
+.next/
+out/
+
+# Config files
+*.config.ts
+*.config.js
+*.config.mjs
+tsconfig.json
+next-env.d.ts
+postcss.config.mjs
+eslint.config.mjs
+components.json
+
+# Development files
+.github/
+.vscode/
+.claude/
+node_modules/
+
+# Documentation site components
+components/
+
+# Test files
+__tests__/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Other
+.env*
+.gitignore
+.DS_Store
+*.log
+*.tsbuildinfo

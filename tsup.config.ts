@@ -11,7 +11,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ["react", "react-dom", "clsx", "tailwind-merge"],
+  external: ["react", "react-dom", "clsx"],
   outDir: "dist",
   treeshake: true,
   minify: false,

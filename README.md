@@ -1,6 +1,6 @@
 # shadcn-password-strength
 
-A customizable password strength indicator component for React with multi-language support.
+A customizable password strength indicator component for React with multi-language support
 
 [![npm version](https://img.shields.io/npm/v/shadcn-password-strength.svg)](https://www.npmjs.com/package/shadcn-password-strength)
 [![license](https://img.shields.io/npm/l/shadcn-password-strength.svg)](https://github.com/SamuelPrigent/shadcn-password-strength/blob/main/LICENSE)

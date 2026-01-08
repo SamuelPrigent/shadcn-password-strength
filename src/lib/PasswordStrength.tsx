@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState, useId } from 'react';
-import { clsx } from 'clsx';
-import type { PasswordStrengthProps, StrengthLevel } from './types';
-import { usePasswordStrength, levelToActiveBars } from './usePasswordStrength';
-import { getTranslation } from './translations';
+import React, { useState, useId } from "react";
+import { clsx } from "clsx";
+import type { PasswordStrengthProps, StrengthLevel } from "./types";
+import { usePasswordStrength, levelToActiveBars } from "./usePasswordStrength";
+import { getTranslation } from "./translations";
 
 // Strength level colors
 const levelColors: Record<StrengthLevel, { bar: string; text: string }> = {
   veryWeak: {
-    bar: 'bg-gray-300 dark:bg-gray-600',
-    text: 'text-gray-500 dark:text-gray-400',
+    bar: "bg-gray-300 dark:bg-gray-600",
+    text: "text-gray-500 dark:text-gray-400",
   },
   weak: {
-    bar: 'bg-red-500',
-    text: 'text-red-500',
+    bar: "bg-red-500",
+    text: "text-red-500",
   },
   soso: {
-    bar: 'bg-orange-400',
-    text: 'text-orange-400',
+    bar: "bg-orange-400",
+    text: "text-orange-400",
   },
   good: {
-    bar: 'bg-lime-500',
-    text: 'text-lime-500',
+    bar: "bg-lime-500",
+    text: "text-lime-500",
   },
   strong: {
-    bar: 'bg-green-500',
-    text: 'text-green-500',
+    bar: "bg-green-500",
+    text: "text-green-500",
   },
 };
 
@@ -37,7 +37,7 @@ function CheckIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-4 h-4', className)}
+      className={clsx("w-4 h-4", className)}
     >
       <path
         fillRule="evenodd"
@@ -54,7 +54,7 @@ function XIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-4 h-4', className)}
+      className={clsx("w-4 h-4", className)}
     >
       <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
     </svg>
@@ -67,7 +67,7 @@ function EyeIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-4 h-4', className)}
+      className={clsx("w-4 h-4", className)}
     >
       <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
       <path
@@ -85,7 +85,7 @@ function EyeSlashIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={clsx('w-4 h-4', className)}
+      className={clsx("w-4 h-4", className)}
     >
       <path
         fillRule="evenodd"
@@ -100,13 +100,11 @@ function EyeSlashIcon({ className }: { className?: string }) {
 export function PasswordStrength({
   value,
   onChange,
-  locale = 'en',
+  locale = "en",
   barsNumber = 5,
   maxRules = 2,
-  showRulesOnValid = true,
   email,
   forbiddenWords,
-  hideInput = false,
   className,
   barClassName,
   inputClassName,
@@ -121,11 +119,14 @@ export function PasswordStrength({
 
   const translation = getTranslation(locale);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { level, passedRules, failedRules, score } = usePasswordStrength(value, {
-    barsNumber,
-    email,
-    forbiddenWords,
-  });
+  const { level, passedRules, failedRules, score } = usePasswordStrength(
+    value,
+    {
+      barsNumber,
+      email,
+      forbiddenWords,
+    }
+  );
 
   const colors = levelColors[level];
   const activeBars = levelToActiveBars(level, barsNumber);
@@ -133,110 +134,109 @@ export function PasswordStrength({
   // Get display rules (failed first, then passed)
   const displayRules = [
     ...failedRules.slice(0, maxRules),
-    ...(showRulesOnValid ? passedRules.slice(0, Math.max(0, maxRules - failedRules.length)) : []),
+    ...passedRules.slice(0, Math.max(0, maxRules - failedRules.length)),
   ].slice(0, maxRules);
 
   const hasValue = value && value.length > 0;
 
   return (
-    <div className={clsx('w-full space-y-2', className)}>
+    <div className={clsx("w-full space-y-2", className)}>
       {/* Input field */}
-      {!hideInput && (
-        <div className="space-y-1.5">
-          {label !== undefined ? (
-            label &&
-            (LabelComponent ? (
-              <LabelComponent htmlFor={inputId}>{label}</LabelComponent>
-            ) : (
-              <label
-                htmlFor={inputId}
-                className="block text-sm font-medium text-gray-900 dark:text-gray-100"
-              >
-                {label}
-              </label>
-            ))
-          ) : LabelComponent ? (
-            <LabelComponent htmlFor={inputId}>{translation.label}</LabelComponent>
+      <div className="space-y-1.5">
+        {label !== undefined ? (
+          label &&
+          (LabelComponent ? (
+            <LabelComponent htmlFor={inputId}>{label}</LabelComponent>
           ) : (
             <label
               htmlFor={inputId}
               className="block text-sm font-medium text-gray-900 dark:text-gray-100"
             >
-              {translation.label}
+              {label}
             </label>
+          ))
+        ) : LabelComponent ? (
+          <LabelComponent htmlFor={inputId}>{translation.label}</LabelComponent>
+        ) : (
+          <label
+            htmlFor={inputId}
+            className="block text-sm font-medium text-gray-900 dark:text-gray-100"
+          >
+            {translation.label}
+          </label>
+        )}
+        <div className="relative">
+          {InputComponent ? (
+            <InputComponent
+              id={inputId}
+              type={showPassword ? "text" : "password"}
+              value={value}
+              onChange={(e) => onChange?.(e.target.value)}
+              placeholder={placeholder || translation.placeholder}
+              className={clsx("pr-10", hasValue, inputClassName)}
+            />
+          ) : (
+            <input
+              id={inputId}
+              type={showPassword ? "text" : "password"}
+              value={value}
+              onChange={(e) => onChange?.(e.target.value)}
+              placeholder={placeholder || translation.placeholder}
+              className={clsx(
+                "w-full px-3 py-2 rounded-lg border bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors",
+                "focus:outline-none focus:ring-2 focus:ring-offset-0",
+                hasValue &&
+                  `focus:ring-${
+                    level === "strong"
+                      ? "green"
+                      : level === "good"
+                      ? "lime"
+                      : level === "soso"
+                      ? "orange"
+                      : level === "weak"
+                      ? "red"
+                      : "gray"
+                  }-500/30`,
+                inputClassName
+              )}
+            />
           )}
-          <div className="relative">
-            {InputComponent ? (
-              <InputComponent
-                id={inputId}
-                type={showPassword ? 'text' : 'password'}
-                value={value}
-                onChange={e => onChange?.(e.target.value)}
-                placeholder={placeholder || translation.placeholder}
-                className={clsx('pr-10', hasValue, inputClassName)}
-              />
-            ) : (
-              <input
-                id={inputId}
-                type={showPassword ? 'text' : 'password'}
-                value={value}
-                onChange={e => onChange?.(e.target.value)}
-                placeholder={placeholder || translation.placeholder}
-                className={clsx(
-                  'w-full px-3 py-2 rounded-lg border bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 transition-colors',
-                  'focus:outline-none focus:ring-2 focus:ring-offset-0',
-                  hasValue &&
-                    `focus:ring-${
-                      level === 'strong'
-                        ? 'green'
-                        : level === 'good'
-                        ? 'lime'
-                        : level === 'soso'
-                        ? 'orange'
-                        : level === 'weak'
-                        ? 'red'
-                        : 'gray'
-                    }-500/30`,
-                  inputClassName
-                )}
-              />
-            )}
-            {showToggleVisibility && (
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
-              </button>
-            )}
-          </div>
+          {showToggleVisibility && (
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+            </button>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Strength indicator */}
       {hasValue && (
         <div className="space-y-2">
-          {/* Rules section (when maxRules > 0) */}
+          {/* Rules section with strength bar inside (when maxRules > 0) */}
           {maxRules > 0 && displayRules.length > 0 && (
-            <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 space-y-2">
+            <div className="p-3 rounded-lg bg-[#f9f9f9] dark:bg-[#eeeeee08] space-y-2 mt-[17px]">
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {translation.passwordMustInclude}
               </p>
               <ul className="space-y-1">
-                {displayRules.map(ruleId => {
+                {displayRules.map((ruleId) => {
                   const isPassed = passedRules.includes(ruleId);
-                  const ruleLabel = translation.rules[ruleId as keyof typeof translation.rules];
+                  const ruleLabel =
+                    translation.rules[ruleId as keyof typeof translation.rules];
 
                   return (
                     <li
                       key={ruleId}
                       className={clsx(
-                        'flex items-center gap-2 text-sm transition-colors',
+                        "flex items-center gap-[10px] text-sm transition-colors",
                         isPassed
-                          ? 'text-green-600 dark:text-green-400'
-                          : 'text-gray-600 dark:text-gray-400'
+                          ? "text-green-600 dark:text-green-400"
+                          : "text-gray-600 dark:text-gray-400"
                       )}
                     >
                       {isPassed ? (
@@ -244,36 +244,67 @@ export function PasswordStrength({
                       ) : (
                         <XIcon className="text-gray-400 shrink-0" />
                       )}
-                      <span className="text-black dark:text-white">{ruleLabel}</span>
+                      <span className="text-black dark:text-white">
+                        {ruleLabel}
+                      </span>
                     </li>
                   );
                 })}
               </ul>
+
+              {/* Strength bars and label inside card */}
+              <div className="space-y-1.5 pt-[6px] pb-2 border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-400 font-medium">
+                    {translation.passwordStrength}
+                  </span>
+                  <span className={clsx("font-medium", colors.text)}>
+                    {translation.levels[level]}
+                  </span>
+                </div>
+                <div className={clsx("flex gap-1", barClassName)}>
+                  {Array.from({ length: barsNumber }).map((_, index) => (
+                    <div
+                      key={index}
+                      className={clsx(
+                        "h-[3.2px] mt-[6px] flex-1 rounded-full transition-all duration-300",
+                        index < activeBars
+                          ? colors.bar
+                          : "bg-gray-200 dark:bg-gray-700"
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
-          {/* Strength bars and label */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600 dark:text-gray-400 font-medium">
-                {translation.passwordStrength}
-              </span>
-              <span className={clsx('font-medium', colors.text)}>{translation.levels[level]}</span>
+          {/* Strength bars only (when maxRules === 0) */}
+          {maxRules === 0 && (
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-gray-600 dark:text-gray-400 font-medium">
+                  {translation.passwordStrength}
+                </span>
+                <span className={clsx("font-medium", colors.text)}>
+                  {translation.levels[level]}
+                </span>
+              </div>
+              <div className={clsx("flex gap-1", barClassName)}>
+                {Array.from({ length: barsNumber }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={clsx(
+                      "h-[3px] flex-1 mt-0.5 rounded-full transition-all duration-300",
+                      index < activeBars
+                        ? colors.bar
+                        : "bg-gray-200 dark:bg-gray-700"
+                    )}
+                  />
+                ))}
+              </div>
             </div>
-
-            {/* Strength bars */}
-            <div className={clsx('flex gap-1', barClassName)}>
-              {Array.from({ length: barsNumber }).map((_, index) => (
-                <div
-                  key={index}
-                  className={clsx(
-                    'h-1 flex-1 rounded-full transition-all duration-300',
-                    index < activeBars ? colors.bar : 'bg-gray-200 dark:bg-gray-700'
-                  )}
-                />
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       )}
     </div>

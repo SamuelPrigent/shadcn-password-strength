@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { codeToHtml } from 'shiki';
-import { cn } from '@/lib/utils';
-import { Copy, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { codeToHtml } from "shiki";
+import { cn } from "@/lib/utils";
+import { Copy, RotateCcw } from "lucide-react";
 
 interface CodeBlockProps {
   code: string;
@@ -12,15 +12,15 @@ interface CodeBlockProps {
 }
 
 export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
-  const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview');
+  const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
-  const [highlightedCode, setHighlightedCode] = useState<string>('');
+  const [highlightedCode, setHighlightedCode] = useState<string>("");
 
   useEffect(() => {
     async function highlight() {
       const html = await codeToHtml(code, {
-        lang: 'tsx',
-        theme: 'github-dark',
+        lang: "tsx",
+        theme: "github-dark",
       });
       setHighlightedCode(html);
     }
@@ -39,12 +39,12 @@ export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
       <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-800 px-4 py-2">
         <div className="flex items-center gap-1">
           <button
-            onClick={() => setActiveTab('preview')}
+            onClick={() => setActiveTab("preview")}
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer',
-              activeTab === 'preview'
-                ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+              "flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer",
+              activeTab === "preview"
+                ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             )}
           >
             <svg
@@ -63,12 +63,12 @@ export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
             Preview
           </button>
           <button
-            onClick={() => setActiveTab('code')}
+            onClick={() => setActiveTab("code")}
             className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer',
-              activeTab === 'code'
-                ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+              "flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer",
+              activeTab === "code"
+                ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             )}
           >
             <svg
@@ -88,7 +88,7 @@ export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
         </div>
 
         {/* Right side controls */}
-        {activeTab === 'preview' && onReset && (
+        {activeTab === "preview" && onReset && (
           <button
             onClick={onReset}
             className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors cursor-pointer"
@@ -97,7 +97,7 @@ export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
             <RotateCcw className="w-4 h-4" />
           </button>
         )}
-        {activeTab === 'code' && (
+        {activeTab === "code" && (
           <button
             onClick={handleCopy}
             className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors cursor-pointer"
@@ -124,8 +124,8 @@ export function CodeBlock({ code, preview, onReset }: CodeBlockProps) {
       </div>
 
       {/* Content */}
-      {activeTab === 'preview' ? (
-        <div className="p-6 pt-10 pb-14 bg-gray-50 dark:bg-gray-900/50 min-h-[200px] flex items-center justify-center">
+      {activeTab === "preview" ? (
+        <div className="p-6 pt-10 pb-14 bg-white dark:bg-gray-900/30 min-h-[200px] flex items-center justify-center">
           <div className="w-full max-w-md">{preview}</div>
         </div>
       ) : (

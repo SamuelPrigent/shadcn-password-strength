@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { CodeBlock } from '@/components/CodeBlock';
-import { CopyButton } from '@/components/CopyButton';
-import { PasswordStrength } from '@/lib';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Image from 'next/image';
+import { useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+// import { TableOfContents } from '@/components/TableOfContents';
+import { CodeBlock } from "@/components/CodeBlock";
+import { CopyButton } from "@/components/CopyButton";
+import { PasswordStrength } from "@/lib";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Image from "next/image";
 
 // Code examples
 const basicExample = `import { useState } from "react";
@@ -145,7 +146,7 @@ export function EmailCheckExample() {
 }`;
 
 // Locale configuration with inline SVG flags
-type SupportedLocale = 'en' | 'fr' | 'es' | 'de' | 'pt' | 'it' | 'nl' | 'pl';
+type SupportedLocale = "en" | "fr" | "es" | "de" | "pt" | "it" | "nl" | "pl";
 
 const flags: Record<SupportedLocale, React.ReactNode> = {
   en: (
@@ -159,7 +160,12 @@ const flags: Record<SupportedLocale, React.ReactNode> = {
       <g clipPath="url(#s)">
         <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
         <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
-        <path d="M0,0 L60,30 M60,0 L0,30" clipPath="url(#t)" stroke="#C8102E" strokeWidth="4" />
+        <path
+          d="M0,0 L60,30 M60,0 L0,30"
+          clipPath="url(#t)"
+          stroke="#C8102E"
+          strokeWidth="4"
+        />
         <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
         <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
       </g>
@@ -214,18 +220,20 @@ const flags: Record<SupportedLocale, React.ReactNode> = {
 };
 
 const localeLabels: Record<SupportedLocale, string> = {
-  en: 'en',
-  fr: 'fr',
-  es: 'es',
-  de: 'de',
-  pt: 'pt',
-  it: 'it',
-  nl: 'nl',
-  pl: 'pl',
+  en: "en",
+  fr: "fr",
+  es: "es",
+  de: "de",
+  pt: "pt",
+  it: "it",
+  nl: "nl",
+  pl: "pl",
 };
 
 // Generate locale example code
-const generateLocaleExample = (locale: SupportedLocale) => `import { useState } from "react";
+const generateLocaleExample = (
+  locale: SupportedLocale
+) => `import { useState } from "react";
 import { PasswordStrength } from "shadcn-password-strength";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -245,12 +253,12 @@ export function Example() {
 }`;
 
 // Default values for examples
-const DEFAULT_BASIC = 'MyP@ssw0rd123';
-const DEFAULT_MAX_RULES = 'Str0ng!Pass';
-const DEFAULT_BARS = 'Test@123';
-const DEFAULT_EMAIL = 'johndoe@mail.com';
-const DEFAULT_EMAIL_PWD = 'ndoe9120*JOk';
-const DEFAULT_LOCALE_PWD = 'MonMotDePasse';
+const DEFAULT_BASIC = "MyP@ssw0rd123";
+const DEFAULT_MAX_RULES = "Str0ng!Pass";
+const DEFAULT_BARS = "Test@123";
+const DEFAULT_EMAIL = "johndoe@mail.com";
+const DEFAULT_EMAIL_PWD = "ndoe9120*JOk";
+const DEFAULT_LOCALE_PWD = "MonMotDePasse";
 
 export default function Home() {
   const [basicPassword, setBasicPassword] = useState(DEFAULT_BASIC);
@@ -258,7 +266,7 @@ export default function Home() {
   const [barsPassword, setBarsPassword] = useState(DEFAULT_BARS);
   const [emailValue, setEmailValue] = useState(DEFAULT_EMAIL);
   const [emailPassword, setEmailPassword] = useState(DEFAULT_EMAIL_PWD);
-  const [selectedLocale, setSelectedLocale] = useState<SupportedLocale>('en');
+  const [selectedLocale, setSelectedLocale] = useState<SupportedLocale>("en");
   const [localePassword, setLocalePassword] = useState(DEFAULT_LOCALE_PWD);
 
   return (
@@ -266,17 +274,26 @@ export default function Home() {
       {/* Theme Toggle - Sticky top right */}
       <ThemeToggle />
 
+      {/* Table of Contents - Right sidebar */}
+      {/* <TableOfContents /> */}
+
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero with Basic Example */}
         <section className="py-8">
           <div className="text-center mb-5">
-            <Image className="mx-auto mb-6" width={56} height={56} src="/npm.svg" alt="logo" />
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+            <Image
+              className="mx-auto mb-6"
+              width={56}
+              height={56}
+              src="/npm.svg"
+              alt="logo"
+            />
+            <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-gray-100">
               shadcn-password-strength
             </h1>
             <p className="text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-              A customizable, accessible password strength component for React. Multi-language
-              support, multiple display modes, and dark mode.
+              A customizable, accessible password strength component for React.
+              Multi-language support, multiple display modes, and dark mode.
             </p>
           </div>
 
@@ -315,7 +332,9 @@ export default function Home() {
 
         {/* Setup */}
         <section id="setup" className="py-12">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Setup</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+            Setup
+          </h2>
 
           <div className="space-y-6">
             {/* Step 1: Tailwind */}
@@ -324,7 +343,7 @@ export default function Home() {
                 1. Make sure Tailwind CSS is installed
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                If not, follow the{' '}
+                If not, follow the{" "}
                 <a
                   href="https://tailwindcss.com/docs/installation"
                   target="_blank"
@@ -345,7 +364,10 @@ export default function Home() {
                 <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto font-mono text-sm">
                   <code>npx shadcn@latest init</code>
                 </pre>
-                <CopyButton text="npx shadcn@latest init" className="absolute top-2 right-2" />
+                <CopyButton
+                  text="npx shadcn@latest init"
+                  className="absolute top-2 right-2"
+                />
               </div>
             </div>
 
@@ -408,13 +430,18 @@ import { Label } from "@/components/ui/label";`}
           id="examples"
           className="py-12 border-t border-gray-200 dark:border-gray-800 space-y-10"
         >
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">More Examples</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            More Examples
+          </h2>
 
           {/* Max rules */}
           <div className="space-y-3">
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">maxRules</h3>
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              maxRules
+            </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Control how many password rules are displayed. Set to 0 for bar-only mode.
+              Control how many password rules are displayed. Set to 0 for
+              bar-only mode.
             </p>
             <CodeBlock
               code={maxRulesExample}
@@ -449,7 +476,9 @@ import { Label } from "@/components/ui/label";`}
 
           {/* Bars Number */}
           <div className="space-y-3">
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">barsNumber</h3>
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              barsNumber
+            </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Choose between 3, 4, or 5 strength bars.
             </p>
@@ -493,8 +522,8 @@ import { Label } from "@/components/ui/label";`}
               Check email pattern in password
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Detects any 4+ consecutive characters from the email. Try &quot;john&quot;,
-              &quot;ndoe&quot;, or &quot;hndo&quot;.
+              Detects any 4+ consecutive characters from the email. Try
+              &quot;john&quot;, &quot;ndoe&quot;, or &quot;hndo&quot;.
             </p>
             <CodeBlock
               code={emailExample}
@@ -510,7 +539,7 @@ import { Label } from "@/components/ui/label";`}
                       id="demo-email"
                       type="email"
                       value={emailValue}
-                      onChange={e => setEmailValue(e.target.value)}
+                      onChange={(e) => setEmailValue(e.target.value)}
                     />
                   </div>
                   <PasswordStrength
@@ -532,20 +561,22 @@ import { Label } from "@/components/ui/label";`}
               Multi-language Support
             </h3>
             <div className="flex flex-wrap items-center gap-2 mb-4">
-              {(Object.keys(localeLabels) as SupportedLocale[]).map(locale => (
-                <button
-                  key={locale}
-                  onClick={() => setSelectedLocale(locale)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all cursor-pointer ${
-                    selectedLocale === locale
-                      ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300'
-                  }`}
-                >
-                  {flags[locale]}
-                  {localeLabels[locale]}
-                </button>
-              ))}
+              {(Object.keys(localeLabels) as SupportedLocale[]).map(
+                (locale) => (
+                  <button
+                    key={locale}
+                    onClick={() => setSelectedLocale(locale)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all cursor-pointer ${
+                      selectedLocale === locale
+                        ? "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                        : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300"
+                    }`}
+                  >
+                    {flags[locale]}
+                    {localeLabels[locale]}
+                  </button>
+                )
+              )}
             </div>
             <CodeBlock
               code={generateLocaleExample(selectedLocale)}
@@ -564,8 +595,13 @@ import { Label } from "@/components/ui/label";`}
         </section>
 
         {/* Props */}
-        <section className="py-12 border-t border-gray-200 dark:border-gray-800 space-y-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Props</h2>
+        <section
+          id="props"
+          className="py-12 border-t border-gray-200 dark:border-gray-800 space-y-8"
+        >
+          <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            Props
+          </h2>
 
           {/* Customization Props */}
           <div className="space-y-3">
@@ -592,10 +628,14 @@ import { Label } from "@/components/ui/label";`}
                 </thead>
                 <tbody>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">locale</td>
+                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
+                      locale
+                    </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400 text-xs">{`"en" | "fr" | "es" | "de" | "pt" | "it" | "nl" | "pl"`}</td>
                     <td className="py-2 px-3 text-gray-500">{`"en"`}</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Language</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Language
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
@@ -605,16 +645,20 @@ import { Label } from "@/components/ui/label";`}
                       3 | 4 | 5
                     </td>
                     <td className="py-2 px-3 text-gray-500">5</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Number of bars</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Number of bars
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
                       maxRules
                     </td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">number</td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
+                      number
+                    </td>
                     <td className="py-2 px-3 text-gray-500">2</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Rules shown (0 = bar only)
+                      Rules shown, 0 = bar only
                     </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
@@ -648,7 +692,9 @@ import { Label } from "@/components/ui/label";`}
 
           {/* Common Props */}
           <div className="space-y-3">
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Common</h3>
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              Common
+            </h3>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
@@ -669,10 +715,16 @@ import { Label } from "@/components/ui/label";`}
                 </thead>
                 <tbody>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">value</td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">string</td>
+                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
+                      value
+                    </td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
+                      string
+                    </td>
                     <td className="py-2 px-3 text-gray-500">required</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Password value</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Password value
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
@@ -680,14 +732,20 @@ import { Label } from "@/components/ui/label";`}
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">{`(value) => void`}</td>
                     <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Change callback</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Change callback
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">email</td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">string</td>
+                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
+                      email
+                    </td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
+                      string
+                    </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Email to check against
+                      Check email text pattern un password
                     </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
@@ -698,33 +756,33 @@ import { Label } from "@/components/ui/label";`}
                       string[]
                     </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Words to exclude</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Words to exclude
+                    </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
                       placeholder
                     </td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">string</td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
+                      string
+                    </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
                       Input placeholder
                     </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">label</td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">string</td>
-                    <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Input label</td>
-                  </tr>
-                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      hideInput
+                      label
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
-                      boolean
+                      string
                     </td>
-                    <td className="py-2 px-3 text-gray-500">false</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">Hide input field</td>
+                    <td className="py-2 px-3 text-gray-500">-</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Input label
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -737,14 +795,14 @@ import { Label } from "@/components/ui/label";`}
       <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
           <p className="text-gray-400 dark:text-gray-500 text-sm">
-            Built by{' '}
+            {"Built by "}
             <a
               href="https://github.com/SamuelPrigent"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
             >
-              Samuel Prigent
+              {/* Samuel Prigent */}
             </a>
           </p>
           <div className="flex items-center gap-4">
@@ -769,7 +827,11 @@ import { Label } from "@/components/ui/label";`}
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               aria-label="npm package"
             >
-              <svg className="w-8 h-8" viewBox="0 0 780 250" fill="currentColor">
+              <svg
+                className="w-8 h-8"
+                viewBox="0 0 780 250"
+                fill="currentColor"
+              >
                 <path d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z" />
               </svg>
             </a>

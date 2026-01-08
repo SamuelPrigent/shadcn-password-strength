@@ -124,27 +124,36 @@ Choose between 3, 4, or 5 strength bars:
 
 ## Props
 
-### Customization
+### Required
 
-| Prop             | Type                                                           | Default | Description                               |
-| ---------------- | -------------------------------------------------------------- | ------- | ----------------------------------------- |
-| `locale`         | `"en" \| "fr" \| "es" \| "de" \| "pt" \| "it" \| "nl" \| "pl"` | `"en"`  | Language for labels and messages          |
-| `barsNumber`     | `3 \| 4 \| 5`                                                  | `5`     | Number of strength indicator bars         |
-| `maxRules`       | `number`                                                       | `2`     | Max validation rules shown (0 = bar only) |
-| `InputComponent` | `Component`                                                    | -       | Your shadcn/ui Input component            |
-| `LabelComponent` | `Component`                                                    | -       | Your shadcn/ui Label component            |
+| Prop       | Type                      | Description      |
+| ---------- | ------------------------- | ---------------- |
+| `value`    | `string`                  | Password value   |
+| `onChange` | `(value: string) => void` | Change callback  |
 
-### Common
+### Shadcn Components
 
-| Prop             | Type                      | Default    | Description                                |
-| ---------------- | ------------------------- | ---------- | ------------------------------------------ |
-| `value`          | `string`                  | _required_ | Password value                             |
-| `onChange`       | `(value: string) => void` | -          | Change callback                            |
-| `email`          | `string`                  | -          | Email to check against (4+ char sequences) |
-| `forbiddenWords` | `string[]`                | -          | Words that cannot be in the password       |
-| `placeholder`    | `string`                  | -          | Input placeholder text                     |
-| `label`          | `string`                  | -          | Input label text                           |
-| `hideInput`      | `boolean`                 | `false`    | Hide the input field (show only indicator) |
+| Prop             | Type        | Description                     |
+| ---------------- | ----------- | ------------------------------- |
+| `InputComponent` | `Component` | Your Input from @/components/ui |
+| `LabelComponent` | `Component` | Your Label from @/components/ui |
+
+### Package Customization
+
+| Prop          | Type                                                           | Default | Description                               |
+| ------------- | -------------------------------------------------------------- | ------- | ----------------------------------------- |
+| `locale`      | `"en" \| "fr" \| "es" \| "de" \| "pt" \| "it" \| "nl" \| "pl"` | `"en"`  | Language for labels and messages          |
+| `barsNumber`  | `3 \| 4 \| 5`                                                  | `5`     | Number of strength indicator bars         |
+| `maxRules`    | `number`                                                       | `2`     | Max validation rules shown (0 = bar only) |
+| `placeholder` | `string`                                                       | -       | Input placeholder text                    |
+| `label`       | `string`                                                       | -       | Input label text                          |
+
+### Utility
+
+| Prop             | Type       | Description                                    |
+| ---------------- | ---------- | ---------------------------------------------- |
+| `email`          | `string`   | Detects 4+ consecutive chars from email        |
+| `forbiddenWords` | `string[]` | Words that cannot be in the password (-2 score)|
 
 ## Password Rules
 

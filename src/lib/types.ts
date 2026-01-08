@@ -31,14 +31,10 @@ export interface PasswordStrengthProps {
   barsNumber?: 3 | 4 | 5;
   /** Maximum number of rules to display (0 = no rules, just bar) */
   maxRules?: number;
-  /** Whether to show rules when they are validated (true) or hide them (false) */
-  showRulesOnValid?: boolean;
   /** Email to check password doesn't contain it */
   email?: string;
   /** Additional words that should not be in the password */
   forbiddenWords?: string[];
-  /** Hide the input field (only show strength indicator) */
-  hideInput?: boolean;
   /** Additional class name for the container */
   className?: string;
   /** Additional class name for the strength bars */

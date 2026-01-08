@@ -1,6 +1,6 @@
 {
   "name": "shadcn-password-strength",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A customizable password strength indicator component for React with multi-language support",
   "author": "Samuel Prigent",
   "license": "MIT",

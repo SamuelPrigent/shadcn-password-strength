@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/SamuelPrigent/shadcn-password-strength/compare/v1.0.0...v1.1.0) (2026-01-08)
+
+
+### Features
+
+* changement props, positionning de la barre et optimisation des espaces ([87b5018](https://github.com/SamuelPrigent/shadcn-password-strength/commit/87b5018c009da9fd504c34373e42a74ad0a903b8))
+
 # 1.0.0 (2026-01-07)
 
 

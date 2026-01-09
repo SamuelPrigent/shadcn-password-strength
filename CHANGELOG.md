@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/SamuelPrigent/shadcn-password-strength/compare/v1.1.0...v1.2.0) (2026-01-09)
+
+
+### Features
+
+* huge improve on perrformance and clean the code ([afed480](https://github.com/SamuelPrigent/shadcn-password-strength/commit/afed48058083577cce4727caec5281e1a5a8a71f))
+
 # [1.1.0](https://github.com/SamuelPrigent/shadcn-password-strength/compare/v1.0.0...v1.1.0) (2026-01-08)
 
 

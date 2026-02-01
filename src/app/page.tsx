@@ -10,7 +10,7 @@ import type { Locale } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PasswordInput } from "@/components/PasswordInput";
-
+//
 // Code examples
 const basicExample = `import { useState } from "react";
 import { PasswordStrength } from "pass-strength-indicator";
@@ -563,7 +563,10 @@ export default function Home() {
                       visible={barModeVisible}
                       onToggleVisible={() => setBarModeVisible((v) => !v)}
                     />
-                    <PasswordStrength value={barModePassword} barMode="default" />
+                    <PasswordStrength
+                      value={barModePassword}
+                      barMode="default"
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="demo-barmode-rounded">Rounded</Label>
@@ -574,7 +577,10 @@ export default function Home() {
                       visible={barModeVisible}
                       onToggleVisible={() => setBarModeVisible((v) => !v)}
                     />
-                    <PasswordStrength value={barModePassword} barMode="rounded" />
+                    <PasswordStrength
+                      value={barModePassword}
+                      barMode="rounded"
+                    />
                   </div>
                 </div>
               }
@@ -819,8 +825,8 @@ export default function Home() {
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400 text-xs">{`string | { light, dark }`}</td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Wraps rules in a card with background. Pass
-                      Tailwind classes{" "}
+                      Wraps rules in a card with background. Pass Tailwind
+                      classes{" "}
                       <code className="text-xs font-mono text-gray-500">{`"bg-zinc-100 dark:bg-zinc-900"`}</code>{" "}
                       or CSS colors{" "}
                       <code className="text-xs font-mono text-gray-500">{`{ light: "#f5f5f5", dark: "#1c1c1c" }`}</code>

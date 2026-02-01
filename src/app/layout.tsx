@@ -14,13 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "shadcn-password-strength",
-  description: "A customizable password strength indicator component for React with multi-language support",
-  keywords: ["react", "password", "strength", "indicator", "validation", "shadcn", "tailwind"],
+  title: "pass-strength-indicator",
+  description:
+    "A customizable password strength indicator component for React with multi-language support",
+  keywords: [
+    "react",
+    "password",
+    "strength",
+    "indicator",
+    "validation",
+    "tailwindcss",
+    "tailwind",
+  ],
   authors: [{ name: "Samuel Prigent" }],
   openGraph: {
-    title: "shadcn-password-strength",
-    description: "A customizable password strength indicator component for React",
+    title: "pass-strength-indicator",
+    description:
+      "A customizable password strength indicator component for React",
     type: "website",
   },
 };
@@ -32,11 +42,14 @@ const themeScript = `
       var stored = localStorage.getItem('theme-storage');
       if (stored) {
         var parsed = JSON.parse(stored);
-        if (parsed.state && parsed.state.theme === 'dark') {
-          document.documentElement.classList.add('dark');
+        if (parsed.state && parsed.state.theme === 'light') {
+          return;
         }
       }
-    } catch (e) {}
+      document.documentElement.classList.add('dark');
+    } catch (e) {
+      document.documentElement.classList.add('dark');
+    }
   })();
 `;
 

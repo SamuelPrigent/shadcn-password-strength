@@ -1,16 +1,16 @@
 {
-  "name": "shadcn-password-strength",
+  "name": "pass-strength-indicator",
   "version": "1.1.0",
   "description": "A customizable password strength indicator component for React with multi-language support",
   "author": "Samuel Prigent",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SamuelPrigent/shadcn-password-strength.git"
+    "url": "git+https://github.com/SamuelPrigent/pass-strength-indicator.git"
   },
-  "homepage": "https://shadcn-password-strength.vercel.app",
+  "homepage": "https://shadcn-pass-strength.vercel.app",
   "bugs": {
-    "url": "https://github.com/SamuelPrigent/shadcn-password-strength/issues"
+    "url": "https://github.com/SamuelPrigent/pass-strength-indicator/issues"
   },
   "keywords": [
     "react",
@@ -21,8 +21,7 @@
     "indicator",
     "validation",
     "password-validation",
-    "shadcn",
-    "shadcn-ui",
+    "pass-strength-indicator",
     "tailwind",
     "tailwindcss",
     "typescript",

@@ -4,76 +4,146 @@ import { useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CodeBlock } from "@/components/CodeBlock";
 import { CopyButton } from "@/components/CopyButton";
+import { HeroSection } from "@/components/HeroSection";
 import { PasswordStrength } from "@/lib";
 import type { Locale } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
+import { PasswordInput } from "@/components/PasswordInput";
 
 // Code examples
 const basicExample = `import { useState } from "react";
-import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { PasswordStrength } from "pass-strength-indicator";
 
 export function BasicExample() {
   const [password, setPassword] = useState("");
 
   return (
-    <PasswordStrength
-      value={password}
-      onChange={setPassword}
-      InputComponent={Input}
-      LabelComponent={Label}
-    />
+    <div className="space-y-2">
+      <label htmlFor="password" className="text-sm font-medium">
+        Password
+      </label>
+      <input
+        id="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-3 py-2 border rounded-lg"
+      />
+      <PasswordStrength value={password} />
+    </div>
   );
 }`;
 
 const maxRulesExample = `import { useState } from "react";
-import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { PasswordStrength } from "pass-strength-indicator";
 
 export function MaxRulesExample() {
-  // All inputs share the same state for comparison
   const [password, setPassword] = useState("");
 
   return (
     <div className="space-y-6">
       {/* No rules (bar only) */}
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        maxRules={0}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} maxRules={0} />
+      </div>
 
       {/* 2 rules */}
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        maxRules={2}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} maxRules={2} />
+      </div>
 
       {/* 3 rules */}
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} maxRules={3} />
+      </div>
+    </div>
+  );
+}`;
+
+const barModeExample = `import { useState } from "react";
+import { PasswordStrength } from "pass-strength-indicator";
+
+export function BarModeExample() {
+  const [password, setPassword] = useState("");
+
+  return (
+    <div className="space-y-6">
+      {/* Default - segmented bars */}
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} barMode="default" />
+      </div>
+
+      {/* Rounded - continuous bar */}
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} barMode="rounded" />
+      </div>
+    </div>
+  );
+}`;
+
+const rulesBgExample = `import { useState } from "react";
+import { PasswordStrength } from "pass-strength-indicator";
+
+export function RulesBackgroundExample() {
+  const [password, setPassword] = useState("");
+
+  return (
+    <div className="space-y-2">
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-3 py-2 border rounded-lg"
+      />
+      {/* With Tailwind classes */}
       <PasswordStrength
         value={password}
-        onChange={setPassword}
-        maxRules={3}
-        InputComponent={Input}
-        LabelComponent={Label}
+        rulesBackground="bg-[#f9f9f9] dark:bg-[#eeeeee0f]"
       />
+      {/* Via CSS */}
+      {/*
+      <PasswordStrength
+        value={password}
+        rulesBackground={{ light: "#f9f9f9", dark: "#eeeeee0f" }}
+      />
+      */}
     </div>
   );
 }`;
 
 const barsNumberExample = `import { useState } from "react";
-import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { PasswordStrength } from "pass-strength-indicator";
 
 export function BarsNumberExample() {
   const [password, setPassword] = useState("");
@@ -81,42 +151,43 @@ export function BarsNumberExample() {
   return (
     <div className="space-y-6">
       {/* 3 bars */}
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        barsNumber={3}
-        maxRules={0}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} barsNumber={3} maxRules={0} />
+      </div>
 
       {/* 4 bars */}
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        barsNumber={4}
-        maxRules={0}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} barsNumber={4} maxRules={0} />
+      </div>
 
       {/* 5 bars (default) */}
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        barsNumber={5}
-        maxRules={0}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength value={password} barsNumber={5} maxRules={0} />
+      </div>
     </div>
   );
 }`;
 
 const emailExample = `import { useState } from "react";
-import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { PasswordStrength } from "pass-strength-indicator";
 
 export function EmailCheckExample() {
   const [email, setEmail] = useState("johndoe@mail.com");
@@ -125,22 +196,30 @@ export function EmailCheckExample() {
   return (
     <div className="space-y-4">
       <div className="space-y-1.5">
-        <Label htmlFor="email">Email</Label>
-        <Input
+        <label htmlFor="email" className="text-sm font-medium">
+          Email
+        </label>
+        <input
           id="email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
         />
       </div>
-      <PasswordStrength
-        value={password}
-        onChange={setPassword}
-        email={email}
-        maxRules={3}
-        InputComponent={Input}
-        LabelComponent={Label}
-      />
+      <div className="space-y-2">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg"
+        />
+        <PasswordStrength
+          value={password}
+          email={email}
+          maxRules={3}
+        />
+      </div>
     </div>
   );
 }`;
@@ -270,29 +349,34 @@ const localeLabels: Record<Locale, string> = {
 
 // Generate locale example code
 const generateLocaleExample = (
-  locale: Locale
+  locale: Locale,
 ) => `import { useState } from "react";
-import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { PasswordStrength } from "pass-strength-indicator";
 
 export function Example() {
   const [password, setPassword] = useState("");
 
   return (
-    <PasswordStrength
-      value={password}
-      onChange={setPassword}
-      locale="${locale}"
-      InputComponent={Input}
-      LabelComponent={Label}
-    />
+    <div className="space-y-2">
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-3 py-2 border rounded-lg"
+      />
+      <PasswordStrength
+        value={password}
+        locale="${locale}"
+      />
+    </div>
   );
 }`;
 
 // Default values for examples
 const DEFAULT_BASIC = "MyP@ssw0rd123";
 const DEFAULT_MAX_RULES = "Str0ng!Pass";
+const DEFAULT_BARMODE = "Str0ng!Pass";
+const DEFAULT_RULESBG = "Str0ng!Pass";
 const DEFAULT_BARS = "Test@123";
 const DEFAULT_EMAIL = "johndoe@mail.com";
 const DEFAULT_EMAIL_PWD = "ndoe9120*JOk";
@@ -301,74 +385,35 @@ const DEFAULT_LOCALE_PWD = "MonMotDePasse";
 export default function Home() {
   const [basicPassword, setBasicPassword] = useState(DEFAULT_BASIC);
   const [maxRulesPassword, setMaxRulesPassword] = useState(DEFAULT_MAX_RULES);
+  const [barModePassword, setBarModePassword] = useState(DEFAULT_BARMODE);
+  const [rulesBgPassword, setRulesBgPassword] = useState(DEFAULT_RULESBG);
   const [barsPassword, setBarsPassword] = useState(DEFAULT_BARS);
   const [emailValue, setEmailValue] = useState(DEFAULT_EMAIL);
   const [emailPassword, setEmailPassword] = useState(DEFAULT_EMAIL_PWD);
   const [selectedLocale, setSelectedLocale] = useState<Locale>("en");
   const [localePassword, setLocalePassword] = useState(DEFAULT_LOCALE_PWD);
+  // Shared password visibility per example block
+  const [maxRulesVisible, setMaxRulesVisible] = useState(false);
+  const [barModeVisible, setBarModeVisible] = useState(false);
+  const [barsVisible, setBarsVisible] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Theme Toggle - Sticky top right */}
       <ThemeToggle />
 
-      {/* Table of Contents - Right sidebar */}
-      {/* <TableOfContents /> */}
+      {/* Hero */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        <HeroSection
+          password={basicPassword}
+          setPassword={setBasicPassword}
+          onReset={() => setBasicPassword(DEFAULT_BASIC)}
+          codeExample={basicExample}
+        />
+      </div>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero with Basic Example */}
-        <section className="py-8">
-          <div className="text-center mb-5">
-            <Image
-              className="mx-auto mb-6"
-              width={56}
-              height={56}
-              src="/npm.svg"
-              alt="logo"
-            />
-            <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-gray-100">
-              shadcn-password-strength
-            </h1>
-            <p className="text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-              A customizable, accessible password strength component for React.
-              Multi-language support, multiple display modes, and dark mode.
-            </p>
-          </div>
-
-          {/* CTAs */}
-          <div className="flex items-center justify-center gap-4 mt-2 mb-10">
-            <a
-              href="#setup"
-              className="px-5 py-2 rounded-lg bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors text-sm"
-            >
-              Get Started
-            </a>
-            <a
-              href="https://github.com/SamuelPrigent/shadcn-password-strength"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-sm"
-            >
-              GitHub
-            </a>
-          </div>
-
-          {/* Basic Example - Featured */}
-          <CodeBlock
-            code={basicExample}
-            onReset={() => setBasicPassword(DEFAULT_BASIC)}
-            preview={
-              <PasswordStrength
-                value={basicPassword}
-                onChange={setBasicPassword}
-                InputComponent={Input}
-                LabelComponent={Label}
-              />
-            }
-          />
-        </section>
-
-        {/* Setup - Stripe-style without timeline */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        {/* Setup */}
         <section id="setup" className="py-12">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-8">
             Setup
@@ -397,78 +442,36 @@ export default function Home() {
             {/* Step 2 */}
             <div className="pb-4">
               <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1">
-                2. Initialize shadcn/ui
+                2. Install the package
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                Set up shadcn/ui in your project.
+                Add pass-strength-indicator to your project.
               </p>
               <div className="relative">
                 <pre className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 pr-12 font-mono text-sm text-gray-900 dark:text-gray-100 overflow-x-auto">
-                  npx shadcn@latest init
+                  npm install pass-strength-indicator
                 </pre>
                 <CopyButton
-                  text="npx shadcn@latest init"
+                  text="npm install pass-strength-indicator"
                   className="absolute top-2.5 right-2"
                 />
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="pb-4">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1">
-                3. Add Input and Label components
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                Install the required shadcn/ui components.
-              </p>
-              <div className="relative">
-                <pre className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 pr-12 font-mono text-sm text-gray-900 dark:text-gray-100 overflow-x-auto">
-                  npx shadcn@latest add input label
-                </pre>
-                <CopyButton
-                  text="npx shadcn@latest add input label"
-                  className="absolute top-2.5 right-2"
-                />
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="pb-4">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1">
-                4. Install the package
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                Add shadcn-password-strength to your project.
-              </p>
-              <div className="relative">
-                <pre className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 pr-12 font-mono text-sm text-gray-900 dark:text-gray-100 overflow-x-auto">
-                  npm install shadcn-password-strength
-                </pre>
-                <CopyButton
-                  text="npm install shadcn-password-strength"
-                  className="absolute top-2.5 right-2"
-                />
-              </div>
-            </div>
-
-            {/* Step 5 */}
             <div>
               <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1">
-                5. Import and use
+                3. Import and use
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                Import package and pass your shadcn/ui components as props.
+                Import the component and pass your password value.
               </p>
               <div className="relative">
                 <pre className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-3 pr-12 font-mono text-sm text-gray-900 dark:text-gray-100 overflow-x-auto">
-                  {`import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";`}
+                  {`import { PasswordStrength } from "pass-strength-indicator";`}
                 </pre>
                 <CopyButton
-                  text={`import { PasswordStrength } from "shadcn-password-strength";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";`}
+                  text={`import { PasswordStrength } from "pass-strength-indicator";`}
                   className="absolute top-2.5 right-2"
                 />
               </div>
@@ -482,7 +485,7 @@ import { Label } from "@/components/ui/label";`}
           className="py-12 border-t border-gray-200 dark:border-gray-800 space-y-10"
         >
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            More Examples
+            Custom props
           </h2>
 
           {/* Max rules */}
@@ -499,26 +502,108 @@ import { Label } from "@/components/ui/label";`}
               onReset={() => setMaxRulesPassword(DEFAULT_MAX_RULES)}
               preview={
                 <div className="space-y-12">
-                  <PasswordStrength
-                    value={maxRulesPassword}
-                    onChange={setMaxRulesPassword}
-                    maxRules={0}
-                    InputComponent={Input}
-                    LabelComponent={Label}
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-maxrules-0">Password</Label>
+                    <PasswordInput
+                      id="demo-maxrules-0"
+                      value={maxRulesPassword}
+                      onChange={(e) => setMaxRulesPassword(e.target.value)}
+                      visible={maxRulesVisible}
+                      onToggleVisible={() => setMaxRulesVisible((v) => !v)}
+                    />
+                    <PasswordStrength value={maxRulesPassword} maxRules={0} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-maxrules-2">Password</Label>
+                    <PasswordInput
+                      id="demo-maxrules-2"
+                      value={maxRulesPassword}
+                      onChange={(e) => setMaxRulesPassword(e.target.value)}
+                      visible={maxRulesVisible}
+                      onToggleVisible={() => setMaxRulesVisible((v) => !v)}
+                    />
+                    <PasswordStrength value={maxRulesPassword} maxRules={2} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-maxrules-3">Password</Label>
+                    <PasswordInput
+                      id="demo-maxrules-3"
+                      value={maxRulesPassword}
+                      onChange={(e) => setMaxRulesPassword(e.target.value)}
+                      visible={maxRulesVisible}
+                      onToggleVisible={() => setMaxRulesVisible((v) => !v)}
+                    />
+                    <PasswordStrength value={maxRulesPassword} maxRules={3} />
+                  </div>
+                </div>
+              }
+            />
+          </div>
+
+          {/* Bar Mode */}
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              barMode
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Choose between segmented bars (default) or a continuous rounded
+              bar.
+            </p>
+            <CodeBlock
+              code={barModeExample}
+              onReset={() => setBarModePassword(DEFAULT_BARMODE)}
+              preview={
+                <div className="space-y-12">
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-barmode-default">Default</Label>
+                    <PasswordInput
+                      id="demo-barmode-default"
+                      value={barModePassword}
+                      onChange={(e) => setBarModePassword(e.target.value)}
+                      visible={barModeVisible}
+                      onToggleVisible={() => setBarModeVisible((v) => !v)}
+                    />
+                    <PasswordStrength value={barModePassword} barMode="default" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-barmode-rounded">Rounded</Label>
+                    <PasswordInput
+                      id="demo-barmode-rounded"
+                      value={barModePassword}
+                      onChange={(e) => setBarModePassword(e.target.value)}
+                      visible={barModeVisible}
+                      onToggleVisible={() => setBarModeVisible((v) => !v)}
+                    />
+                    <PasswordStrength value={barModePassword} barMode="rounded" />
+                  </div>
+                </div>
+              }
+            />
+          </div>
+
+          {/* Rules Background */}
+          <div className="space-y-3">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+              rulesBackground
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Add a card background around the rules section. Pass a Tailwind
+              class string or an object with light/dark CSS colors.
+            </p>
+            <CodeBlock
+              code={rulesBgExample}
+              onReset={() => setRulesBgPassword(DEFAULT_RULESBG)}
+              preview={
+                <div className="space-y-2">
+                  <Label htmlFor="demo-rulesbg">Password</Label>
+                  <PasswordInput
+                    id="demo-rulesbg"
+                    value={rulesBgPassword}
+                    onChange={(e) => setRulesBgPassword(e.target.value)}
                   />
                   <PasswordStrength
-                    value={maxRulesPassword}
-                    onChange={setMaxRulesPassword}
-                    maxRules={2}
-                    InputComponent={Input}
-                    LabelComponent={Label}
-                  />
-                  <PasswordStrength
-                    value={maxRulesPassword}
-                    onChange={setMaxRulesPassword}
-                    maxRules={3}
-                    InputComponent={Input}
-                    LabelComponent={Label}
+                    value={rulesBgPassword}
+                    rulesBackground="bg-[#f9f9f9] dark:bg-[#eeeeee0f]"
                   />
                 </div>
               }
@@ -538,30 +623,51 @@ import { Label } from "@/components/ui/label";`}
               onReset={() => setBarsPassword(DEFAULT_BARS)}
               preview={
                 <div className="space-y-12">
-                  <PasswordStrength
-                    value={barsPassword}
-                    onChange={setBarsPassword}
-                    barsNumber={3}
-                    maxRules={0}
-                    InputComponent={Input}
-                    LabelComponent={Label}
-                  />
-                  <PasswordStrength
-                    value={barsPassword}
-                    onChange={setBarsPassword}
-                    barsNumber={4}
-                    maxRules={0}
-                    InputComponent={Input}
-                    LabelComponent={Label}
-                  />
-                  <PasswordStrength
-                    value={barsPassword}
-                    onChange={setBarsPassword}
-                    barsNumber={5}
-                    maxRules={0}
-                    InputComponent={Input}
-                    LabelComponent={Label}
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-bars-3">Password</Label>
+                    <PasswordInput
+                      id="demo-bars-3"
+                      value={barsPassword}
+                      onChange={(e) => setBarsPassword(e.target.value)}
+                      visible={barsVisible}
+                      onToggleVisible={() => setBarsVisible((v) => !v)}
+                    />
+                    <PasswordStrength
+                      value={barsPassword}
+                      barsNumber={3}
+                      maxRules={0}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-bars-4">Password</Label>
+                    <PasswordInput
+                      id="demo-bars-4"
+                      value={barsPassword}
+                      onChange={(e) => setBarsPassword(e.target.value)}
+                      visible={barsVisible}
+                      onToggleVisible={() => setBarsVisible((v) => !v)}
+                    />
+                    <PasswordStrength
+                      value={barsPassword}
+                      barsNumber={4}
+                      maxRules={0}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-bars-5">Password</Label>
+                    <PasswordInput
+                      id="demo-bars-5"
+                      value={barsPassword}
+                      onChange={(e) => setBarsPassword(e.target.value)}
+                      visible={barsVisible}
+                      onToggleVisible={() => setBarsVisible((v) => !v)}
+                    />
+                    <PasswordStrength
+                      value={barsPassword}
+                      barsNumber={5}
+                      maxRules={0}
+                    />
+                  </div>
                 </div>
               }
             />
@@ -593,14 +699,19 @@ import { Label } from "@/components/ui/label";`}
                       onChange={(e) => setEmailValue(e.target.value)}
                     />
                   </div>
-                  <PasswordStrength
-                    value={emailPassword}
-                    onChange={setEmailPassword}
-                    email={emailValue}
-                    maxRules={2}
-                    InputComponent={Input}
-                    LabelComponent={Label}
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="demo-email-pwd">Password</Label>
+                    <PasswordInput
+                      id="demo-email-pwd"
+                      value={emailPassword}
+                      onChange={(e) => setEmailPassword(e.target.value)}
+                    />
+                    <PasswordStrength
+                      value={emailPassword}
+                      email={emailValue}
+                      maxRules={2}
+                    />
+                  </div>
                 </div>
               }
             />
@@ -631,13 +742,18 @@ import { Label } from "@/components/ui/label";`}
               code={generateLocaleExample(selectedLocale)}
               onReset={() => setLocalePassword(DEFAULT_LOCALE_PWD)}
               preview={
-                <PasswordStrength
-                  value={localePassword}
-                  onChange={setLocalePassword}
-                  locale={selectedLocale}
-                  InputComponent={Input}
-                  LabelComponent={Label}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="demo-locale">Password</Label>
+                  <PasswordInput
+                    id="demo-locale"
+                    value={localePassword}
+                    onChange={(e) => setLocalePassword(e.target.value)}
+                  />
+                  <PasswordStrength
+                    value={localePassword}
+                    locale={selectedLocale}
+                  />
+                </div>
               }
             />
           </div>
@@ -653,7 +769,7 @@ import { Label } from "@/components/ui/label";`}
           </h2>
 
           {/* Customization Props */}
-          <div className="space-y-3">
+          <div className="bg-white dark:bg-gray-950 border border-gray-200/60 dark:border-gray-800 rounded-xl p-6 space-y-3">
             <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               Customization
             </h3>
@@ -688,6 +804,30 @@ import { Label } from "@/components/ui/label";`}
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
+                      barMode
+                    </td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400 text-xs">{`"default" | "rounded"`}</td>
+                    <td className="py-2 px-3 text-gray-500">{`"default"`}</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Visual bar mode variant
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
+                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
+                      rulesBackground
+                    </td>
+                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400 text-xs">{`string | { light, dark }`}</td>
+                    <td className="py-2 px-3 text-gray-500">-</td>
+                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
+                      Wraps rules in a card with background. Pass
+                      Tailwind classes{" "}
+                      <code className="text-xs font-mono text-gray-500">{`"bg-zinc-100 dark:bg-zinc-900"`}</code>{" "}
+                      or CSS colors{" "}
+                      <code className="text-xs font-mono text-gray-500">{`{ light: "#f5f5f5", dark: "#1c1c1c" }`}</code>
+                    </td>
+                  </tr>
+                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
+                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
                       barsNumber
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
@@ -710,37 +850,13 @@ import { Label } from "@/components/ui/label";`}
                       Rules shown, 0 = bar only
                     </td>
                   </tr>
-                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      InputComponent
-                    </td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
-                      Component
-                    </td>
-                    <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Input shadcn from /ui
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      LabelComponent
-                    </td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
-                      Component
-                    </td>
-                    <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Label shadcn from /ui
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
 
           {/* Common Props */}
-          <div className="space-y-3">
+          <div className="bg-white dark:bg-gray-950 border border-gray-200/60 dark:border-gray-800 rounded-xl p-6 space-y-3">
             <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
               Common
             </h3>
@@ -777,16 +893,6 @@ import { Label } from "@/components/ui/label";`}
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      onChange
-                    </td>
-                    <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">{`(value) => void`}</td>
-                    <td className="py-2 px-3 text-gray-500">-</td>
-                    <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Change callback
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-100 dark:border-gray-800/50">
-                    <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
                       email
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
@@ -794,7 +900,7 @@ import { Label } from "@/components/ui/label";`}
                     </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Check email text pattern un password
+                      Check email text pattern in password
                     </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
@@ -811,26 +917,26 @@ import { Label } from "@/components/ui/label";`}
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      placeholder
+                      className
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
                       string
                     </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Input placeholder
+                      Container class name
                     </td>
                   </tr>
                   <tr className="border-b border-gray-100 dark:border-gray-800/50">
                     <td className="py-2 px-3 font-mono text-gray-900 dark:text-gray-100">
-                      label
+                      barClassName
                     </td>
                     <td className="py-2 px-3 font-mono text-gray-600 dark:text-gray-400">
                       string
                     </td>
                     <td className="py-2 px-3 text-gray-500">-</td>
                     <td className="py-2 px-3 text-gray-600 dark:text-gray-400">
-                      Input label
+                      Strength bar class name
                     </td>
                   </tr>
                 </tbody>
@@ -841,7 +947,7 @@ import { Label } from "@/components/ui/label";`}
       </main>
 
       {/* Footer - Full width */}
-      <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
+      <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
           <p className="text-gray-400 dark:text-gray-500 text-sm">
             {"Built by "}
@@ -856,7 +962,7 @@ import { Label } from "@/components/ui/label";`}
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/SamuelPrigent/shadcn-password-strength"
+              href="https://github.com/SamuelPrigent/pass-strength-indicator"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
@@ -870,7 +976,7 @@ import { Label } from "@/components/ui/label";`}
               </svg>
             </a>
             <a
-              href="https://www.npmjs.com/package/shadcn-password-strength"
+              href="https://www.npmjs.com/package/pass-strength-indicator"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"

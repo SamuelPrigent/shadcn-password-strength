@@ -23,8 +23,6 @@ export interface PasswordStrengthResult {
 export interface PasswordStrengthProps {
   /** Current password value */
   value: string;
-  /** Callback when password changes (for controlled input) */
-  onChange?: (value: string) => void;
   /** Language for labels and messages */
   locale?: Locale;
   /** Number of strength bars (3, 4, or 5) */
@@ -39,18 +37,10 @@ export interface PasswordStrengthProps {
   className?: string;
   /** Additional class name for the strength bars */
   barClassName?: string;
-  /** Additional class name for the input */
-  inputClassName?: string;
-  /** Placeholder for the input field */
-  placeholder?: string;
-  /** Label for the input field */
-  label?: string;
-  /** Whether to show the eye icon to toggle password visibility */
-  showToggleVisibility?: boolean;
-  /** Tab index for the visibility toggle button (-1 by default to skip in tab order) */
-  toggleTabIndex?: number;
-  /** Custom Input component (e.g. shadcn/ui Input) */
-  InputComponent?: React.ComponentType<React.ComponentProps<"input">>;
-  /** Custom Label component (e.g. shadcn/ui Label) */
-  LabelComponent?: React.ComponentType<React.ComponentProps<"label">>;
+  /** Visual bar mode: "default" (segmented bars) or "rounded" (continuous bar) */
+  barMode?: "default" | "rounded";
+  /** Background for the rules card. When set, wraps rules in a card.
+   *  - string: Tailwind classes (e.g. "bg-zinc-100 dark:bg-zinc-900")
+   *  - object: CSS colors for light/dark mode (e.g. { light: "#f5f5f5", dark: "#1c1c1c" }) */
+  rulesBackground?: string | { light: string; dark: string };
 }

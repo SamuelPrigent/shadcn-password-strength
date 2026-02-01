@@ -1,13 +1,13 @@
-# Contributing to shadcn-password-strength
+# Contributing to pass-strength-indicator
 
-Thank you for your interest in contributing to shadcn-password-strength! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing! This document provides guidelines and instructions.
 
 ## Development Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/SamuelPrigent/shadcn-password-strength.git
-   cd shadcn-password-strength
+   git clone https://github.com/SamuelPrigent/pass-strength-indicator.git
+   cd pass-strength-indicator
    ```
 
 2. **Install dependencies**
@@ -24,7 +24,7 @@ Thank you for your interest in contributing to shadcn-password-strength! This do
 ## Project Structure
 
 ```
-shadcn-password-strength/
+pass-strength-indicator/
 ├── src/
 │   ├── lib/                    # Package source code
 │   │   ├── PasswordStrength.tsx  # Main component
@@ -47,14 +47,14 @@ shadcn-password-strength/
 
 ## Scripts
 
-| Script           | Description                          |
-| ---------------- | ------------------------------------ |
-| `npm run dev`    | Start development server             |
-| `npm run build`  | Build the Next.js demo site          |
-| `npm run build:lib` | Build the npm package (dist/)     |
-| `npm run test`   | Run tests once                       |
-| `npm run test:watch` | Run tests in watch mode          |
-| `npm run lint`   | Run ESLint                           |
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start development server |
+| `npm run build` | Build the Next.js demo site |
+| `npm run build:lib` | Build the npm package (dist/) |
+| `npm run test` | Run tests once |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run lint` | Run ESLint |
 
 ## Contributing Guidelines
 
@@ -84,8 +84,6 @@ shadcn-password-strength/
        noEmail: '...',
        noForbiddenWords: '...',
      },
-     placeholder: '...',
-     label: '...',
    };
    ```
 
@@ -107,7 +105,6 @@ shadcn-password-strength/
 - Use TypeScript for all new code
 - Follow the existing code style (enforced by ESLint)
 - Use meaningful variable and function names
-- Add JSDoc comments for exported functions and types
 - Keep components focused and small
 
 ### Testing

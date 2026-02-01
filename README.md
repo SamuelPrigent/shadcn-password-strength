@@ -38,16 +38,13 @@ export function PasswordForm() {
 
   return (
     <div className="space-y-2">
-      <label htmlFor="password" className="text-sm font-medium">
-        Password
-      </label>
+      {/* Your input */}
       <input
-        id="password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full px-3 py-2 border rounded-lg"
       />
+      {/* The strength indicator */}
       <PasswordStrength value={password} />
     </div>
   );

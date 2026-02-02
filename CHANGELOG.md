@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/SamuelPrigent/pass-strength-indicator/compare/v1.2.0...v1.3.0) (2026-02-02)
+
+
+### Bug Fixes
+
+* little optimisation ([d953975](https://github.com/SamuelPrigent/pass-strength-indicator/commit/d95397529fc1682df079ca60764c517c51b93064))
+
+
+### Features
+
+* readme-update ([17b7fd5](https://github.com/SamuelPrigent/pass-strength-indicator/commit/17b7fd5e29c18c5a7c3dc0be008b7b560b5f7383))
+
 # [1.2.0](https://github.com/SamuelPrigent/pass-strength-indicator/compare/v1.1.0...v1.2.0) (2026-02-01)
 
 
